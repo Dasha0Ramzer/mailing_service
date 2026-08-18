@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5 text-black">Главная страница</h2>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Карточка 1: Всего попыток -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card bg-secondary text-white border-0 h-100 d-flex flex-column align-items-center justify-content-center text-center p-4">
+                    <h5 class="fw-bold mb-1">Всего попыток</h5>
+                    <div class="display-4 fw-bold">{{ total_attempts }}</div>
+                </div>
+            </div>
+
+            <!-- Карточка 2: Успешные попытки -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card bg-secondary text-white border-0 h-100 d-flex flex-column align-items-center justify-content-center text-center p-4">
+                    <h5 class="fw-bold mb-1">Успешных</h5>
+                    <div class="display-4 fw-bold text-success">{{ successful_attempts }}</div>
+                </div>
+            </div>
+
+            <!-- Карточка 3: Неуспешные попытки -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card bg-secondary text-white border-0 h-100 d-flex flex-column align-items-center justify-content-center text-center p-4">
+                    <h5 class="fw-bold mb-1">Неуспешных</h5>
+                    <div class="display-4 fw-bold text-danger">{{ failed_attempts }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок с итоговым количеством отправленных сообщений -->
+        <div class="mt-4 text-center">
+            <p class="text-muted small mb-0">
+                Всего сообщений успешно доставлено:
+            </p>
+            <span class="d-block fs-3 fw-bold">{{ total_messages_sent }}</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

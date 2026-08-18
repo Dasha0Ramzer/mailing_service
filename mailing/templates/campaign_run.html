@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Подтверждение запуска рассылки</h1>
+
+    <div class="card p-3 mb-3">
+        <p><strong>Рассылка #{{ campaign.id }}</strong></p>
+        <p>Сообщение: <strong>{{ campaign.message.subject }}</strong></p>
+        <p>Период: {{ campaign.start_time }} — {{ campaign.end_time }}</p>
+        <p>Получателей: {{ campaign.recipients.count }}</p>
+    </div>
+
+    <p>Вы уверены, что хотите запустить эту рассылку?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Да, запустить</button>
+        <a href="{% url 'mailing:campaign_detail' campaign.id %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

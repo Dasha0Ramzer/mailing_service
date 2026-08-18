@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Получатели рассылок</h1>
+        <a href="{% url 'mailing:recipient_create' %}" class="btn btn-warning btn-sm rounded-pill fw-semibold shadow">Создать нового получателя</a>
+    </div>
+    <ul class="list-group">
+        {% for recipient in recipient_list %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{% url 'mailing:recipient_detail' recipient.id %}" class="text-dark">{{ recipient.full_name }}</a>
+            <div>
+                <a href="{% url 'mailing:recipient_update' recipient.id %}" class="btn btn-sm btn-secondary ml-2">Редактировать</a>
+                <a href="{% url 'mailing:recipient_delete' recipient.id %}" class="btn btn-sm btn-danger ml-2">Удалить</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
