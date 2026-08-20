@@ -12,19 +12,25 @@ def send_campaign(campaign_id: int) -> dict:
     now = timezone.now()
 
     if not (campaign.start_time <= now <= campaign.end_time):
-        SendAttempt.objects.create(
-            campaign=campaign,
-            sent_at=now,
-            status="Не успешно",
-            server_response="Время вне окна отправки",
-        )
-        return {"success": False, "error": "Время вне окна", "total": 0, "success_count": 0, "fail_count": 1}
+        return {
+            "success": False,
+            "error": "Время вне окна отправки",
+            "total": 0,
+            "success_count": 0,
+            "fail_count": 1,
+        }
 
     recipients = list(campaign.recipients.all())
     total = len(recipients)
 
     if total == 0:
-        return {"success": False, "error": "Нет получателей", "total": 0, "success_count": 0, "fail_count": 0}
+        return {
+            "success": False,
+            "error": "Нет получателей",
+            "total": 0,
+            "success_count": 0,
+            "fail_count": 0,
+        }
 
     attempts_to_save = []
     success_count = 0
@@ -60,7 +66,7 @@ def send_campaign(campaign_id: int) -> dict:
     SendAttempt.objects.bulk_create(attempts_to_save)
 
     campaign.last_run_at = now
-    campaign.save(update_fields=['last_run_at'])
+    campaign.save(update_fields=["last_run_at"])
 
     return {
         "success": True,

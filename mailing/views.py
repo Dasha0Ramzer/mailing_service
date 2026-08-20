@@ -23,8 +23,12 @@ class RecipientListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        if not self.request.user.is_staff:
-            qs = qs.filter(campaigns__owner=self.request.user).distinct()
+        user = self.request.user
+
+        if user.is_staff:
+            return qs
+
+        qs = qs.filter(campaigns__owner=user).distinct()
         return qs
 
 
@@ -59,6 +63,16 @@ class MessageListView(LoginRequiredMixin, ListView):
     model = Message
     template_name = "message_list.html"
     context_object_name = "message_list"
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        user = self.request.user
+
+        if user.is_staff:
+            return qs
+
+        qs = qs.filter(campaign__owner=user).distinct()
+        return qs
 
 
 class MessageCreateView(LoginRequiredMixin, CreateView):
@@ -161,11 +175,21 @@ class CampaignDetailView(LoginRequiredMixin, DetailView):
 
 class CampaignRunView(LoginRequiredMixin, View):
     def get(self, request, pk):
-        campaign = get_object_or_404(Campaign, pk=pk)
+        qs = Campaign.objects.all()
+        if not request.user.is_staff:
+            qs = qs.filter(owner=request.user)
+
+        campaign = get_object_or_404(qs, pk=pk)
+        campaign.update_status()
+
         return render(request, "campaign_run.html", {"campaign": campaign})
 
     def post(self, request, pk):
-        campaign = get_object_or_404(Campaign, pk=pk)
+        qs = Campaign.objects.all()
+        if not request.user.is_staff:
+            qs = qs.filter(owner=request.user)
+
+        campaign = get_object_or_404(qs, pk=pk)
         result = send_campaign(campaign.id)
 
         if result["success"]:
@@ -178,7 +202,7 @@ class CampaignRunView(LoginRequiredMixin, View):
             error_text = result.get("error", "Не удалось запустить рассылку.")
             messages.error(request, error_text)
 
-        return redirect(reverse_lazy("mailing:campaign_list"))
+        return redirect("mailing:campaign_list")
 
 
 @cache_page(60 * 5)
