@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4 fw-bold mb-3">Управляйте рассылками в одном окне: создавайте, автоматизируйте,
+        анализируйте</h1>
+    <p class="lead">Доставляемость выше 99%, аналитика в реальном времени</p>
+    <div class="col-lg-6 mx-auto">
+        <div class="d-grid gap-5 d-sm-flex justify-content-sm-center mb-5">
+            <a href="{% url 'mailing:campaign_create' %}" class="btn btn-warning btn-lg px-5 py-3 rounded-pill fw-semibold shadow">Создать первую
+                рассылку</a></div>
+    </div>
+</div>
+<div class="container text-center">
+
+    <!-- Мини-демо: шаги -->
+    <h3 class="display-5 fw-bold mb-3">Рассылки за 5 минут - даже если вы делаете это впервые</h3>
+
+    <div class="row g-4 mt-5 justify-content-center">
+
+        <div class="col-md-3 col-sm-6">
+            <div class="card bg-secondary text-white h-100 d-flex flex-column align-items-center p-4 border-0">
+                <i class="fas fa-layer-group fs-3 mb-3"></i>
+                <h5 class="fw-semibold">Выберите шаблон</h5>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card bg-secondary text-white h-100 d-flex flex-column align-items-center p-4 border-0">
+                <i class="fas fa-pen fs-3 mb-3"></i>
+                <h5 class="fw-semibold">Добавьте текст</h5>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card bg-secondary text-white h-100 d-flex flex-column align-items-center p-4 border-0">
+                <i class="fas fa-users fs-3 mb-3"></i>
+                <h5 class="fw-semibold">Настройте получателей</h5>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card bg-secondary text-white h-100 d-flex flex-column align-items-center p-4 border-0">
+                <i class="fas fa-rocket fs-3 mb-3"></i>
+                <h5 class="fw-semibold">Отправьте</h5>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5 text-black">Статистика системы</h2>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Карточка 1: Всего рассылок -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card bg-secondary text-white border-0 h-100 d-flex flex-column align-items-center justify-content-center text-center p-4">
+                    <h5 class="fw-bold mb-1">Всего рассылок</h5>
+                    <div class="display-4 fw-bold">{{ total_campaigns }}</div>
+                </div>
+            </div>
+
+            <!-- Карточка 2: Активные рассылки -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card bg-secondary text-white border-0 h-100 d-flex flex-column align-items-center justify-content-center text-center p-4">
+                    <h5 class="fw-bold mb-1">Активных рассылок</h5>
+                    <div class="display-4 fw-bold">{{ active_campaigns }}</div>
+                </div>
+            </div>
+
+            <!-- Карточка 3: Уникальных получателей -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card bg-secondary text-white border-0 h-100 d-flex flex-column align-items-center justify-content-center text-center p-4">
+                    <h5 class="fw-bold mb-1">Уникальных получателей</h5>
+                    <div class="display-4 fw-bold">{{ unique_recipients }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Почему удобно -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5 text-black">Почему это удобно</h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card bg-secondary h-100 border-0 d-flex align-items-start p-4 gap-3 text-white">
+                    <i class="fas fa-ban fs-4 mt-1 text-warning"></i>
+                    <div>
+                        <h5 class="m-0 fw-semibold">Не нужно программировать</h5>
+                        <p class="m-0 small text-white">Всё работает в визуальном редакторе</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-secondary h-100 border-0 d-flex align-items-start p-4 gap-3 text-white">
+                    <i class="fas fa-database fs-4 mt-1 text-warning"></i>
+                    <div>
+                        <h5 class="m-0 fw-semibold">Работает с любой базой</h5>
+                        <p class="m-0 small text-white">Загружайте контакты из CSV, Excel или CRM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-secondary h-100 border-0 d-flex align-items-start p-4 gap-3 text-white">
+                    <i class="fas fa-inbox fs-4 mt-1 text-warning"></i>
+                    <div>
+                        <h5 class="m-0 fw-semibold">Письма попадают во «Входящие»</h5>
+                        <p class="m-0 small text-white">Используем проверенные SMTP‑серверы и прогрев</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Отзывы -->
+<section class="py-5 bg-black">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5 text-black">Отзывы пользователей</h2>
+        <div class="row g-4 justify-content-center">
+            <!-- Отзыв 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-start border-warning border-4 bg-secondary h-100 border-end-0 border-top-0 border-bottom-0 text-white">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-circle bg-dark d-flex justify-content-center align-items-center text-uppercase fw-bold text-warning"
+                                 style="width: 50px; height: 50px;">А
+                            </div>
+                            <div>
+                                <h5 class="m-0">Анна Петрова</h5>
+                                <small class="text-white">Маркетолог, ООО «Вектор»</small>
+                            </div>
+                        </div>
+                        <p class="card-text text-white">"Раньше на подготовку рассылки уходило полдня, теперь справляюсь
+                            за 15 минут. Шаблоны реально экономят время!"</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Отзыв 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-start border-warning border-4 bg-secondary h-100 border-end-0 border-top-0 border-bottom-0 text-white">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-circle bg-dark d-flex justify-content-center align-items-center text-uppercase fw-bold text-warning"
+                                 style="width: 50px; height: 50px;">И
+                            </div>
+                            <div>
+                                <h5 class="m-0">Иван Смирнов</h5>
+                                <small class="text-white">Владелец интернет‑магазина</small>
+                            </div>
+                        </div>
+                        <p class="card-text text-white">"Очень простой интерфейс, разобрался без инструкции. Конверсия
+                            выросла на 20% после внедрения серии писем."</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Отзыв 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card border-start border-warning border-4 bg-secondary h-100 border-end-0 border-top-0 border-bottom-0 text-white">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-circle bg-dark d-flex justify-content-center align-items-center text-uppercase fw-bold text-warning"
+                                 style="width: 50px; height: 50px;">М
+                            </div>
+                            <div>
+                                <h5 class="m-0">Мария Козлова</h5>
+                                <small class="text-white">SMM‑специалист</small>
+                            </div>
+                        </div>
+                        <p class="card-text text-white">"Нравится, что не нужно настраивать сложные интеграции. Всё
+                            работает сразу после регистрации."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

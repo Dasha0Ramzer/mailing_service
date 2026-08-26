@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Получатель: {{ recipient_detail.full_name }}</h1>
+    <p>Адрес электронной почты: {{ recipient_detail.email }}</p>
+    <p>{{ recipient_detail.comment }}</p>
+
+    <a href="{% url 'mailing:recipient_update' recipient_detail.id %}" class="btn btn-secondary">Редактировать</a>
+    <a href="{% url 'mailing:recipient_delete' recipient_detail.id %}" class="btn btn-danger">Удалить</a>
+    <a href="{% url 'mailing:recipient_list' %}" class="btn btn-primary">Вернуться к списку</a>
+</div>
+{% endblock %}

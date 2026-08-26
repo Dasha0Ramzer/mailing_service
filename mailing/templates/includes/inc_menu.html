@@ -1,0 +1,34 @@
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"><a href="/"
+                                                                                                            class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <h5 class="my-0 mr-md-auto font-weight-normal"><strong>РассылкаПлюс</strong></h5>
+        </a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'home' %}" class="nav-link px-2 text-white">Главная</a></li>
+                <li><a href="{% url 'mailing:recipient_list' %}" class="nav-link px-2 text-white">Получатели</a></li>
+                <li><a href="{% url 'mailing:message_list' %}" class="nav-link px-2 text-white">Сообщения</a></li>
+                <li><a href="{% url 'mailing:campaign_list' %}" class="nav-link px-2 text-white">Рассылки</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'mailing:dashboard' %}" class="nav-link px-2 text-white">Моя статистика</a></li>
+                {% endif %}
+            </ul>
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"><input type="search"
+                                                                                       class="form-control form-control-dark text-bg-dark"
+                                                                                       placeholder="Search..."
+                                                                                       aria-label="Search"></form>
+            <div class="text-end">
+                {% if user.is_authenticated %}
+                <form method="post" action="/users/logout/" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-light me-2">Выход</button>
+                </form>
+                {% else %}
+                <a href="{% url 'users:login' %}" class="btn btn-outline-light me-2">Войти</a>
+                <a href="{% url 'users:register' %}" class="btn btn-warning">Зарегистрироваться</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+
